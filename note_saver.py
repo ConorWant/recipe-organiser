@@ -59,10 +59,13 @@ def save_popup():
     error_label.pack()
 
     def on_save():
-        filename = entry.get().strip
+        filename = entry.get().strip()
         if filename:
-            save_note(filename, content)
-            popup.destroy()
+            try:
+                save_note(filename, content)
+                popup.destroy()
+            except:
+                error_label.config(text="Cannot save note.")
         else:
             error_label.config(text="Please enter a filename.")
 
@@ -75,8 +78,8 @@ if __name__ == '__main__':
     root.title('Note saver')
     root.geometry('600x900')
 
-    text_box = tk.Text(root, height=45, width=50)
-    text_box.pack()
+    text_box = tk.Text(root)
+    text_box.pack(fill=tk.BOTH, expand=True, padx=20, pady=10)
 
     frame = tk.Frame(root)
     frame.pack()
